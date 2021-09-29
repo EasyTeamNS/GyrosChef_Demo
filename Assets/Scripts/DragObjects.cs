@@ -7,38 +7,66 @@ public class DragObjects : MonoBehaviour
     // Start is called before the first frame update
 
     private Vector3 mOffset;
-    private float mZCoord;
+    private float potatoZAxis;
+    //private float mXCoord;
     private bool canMoveObject;
+
+    //private double postatoZ = 1.457171;
+    private float potatoStartY;
+
+    private PotatoTableColliderManager colliderManager;
 
 
     void Start()
     {
+        colliderManager = Transform.FindObjectOfType<PotatoTableColliderManager>();
+        potatoStartY = transform.position.y;
         canMoveObject = true;
+    }
+
+    void Update()
+    {
+        //Debug.Log(canMoveObject);
     }
 
     void OnMouseDown()
     {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+        potatoZAxis = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+        //mXCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).x; // za zakljucavanje pomeranja po osama
         mOffset = transform.position - GetMousePos();
+        colliderManager.GetComponent<PotatoTableColliderManager>().StartDrag();
     }
 
-    //void OnMouseUp()
-    //{
-     //   canMoveObject = false;
-    //}
+    void OnMouseUp()
+    {
+        DragObjectEnabled();
+        colliderManager.GetComponent<PotatoTableColliderManager>().StopDrag();
+        transform.position.y
+    }
 
     void OnMouseDrag()
     {
         if (canMoveObject)
         {
-            transform.position = GetMousePos() + mOffset;
-        }
+            //Debug.Log(gameObject.transform.position.y + " : " + potatoStartY);
+            //if (transform.position.y > potatoStartY)
+            //{
+                transform.position = GetMousePos() + mOffset;
+                //Debug.Log("potato Y > potatoStartY");
+            //}
+            //else
+            //{
+               // DragObjectDisabled(gameObject);
+                //colliderManager.GetComponent<PotatoTableColliderManager>().StopDrag();
+                //Debug.Log("potato Y < potatoStartY");
+            //}
+        } 
     }
-
     private Vector3 GetMousePos()
     {
         Vector3 cursorPos = Input.mousePosition;
-        cursorPos.z = mZCoord;
+        cursorPos.z = potatoZAxis;
+        //cursorPos.x = mXCoord;
         return Camera.main.ScreenToWorldPoint(cursorPos);
     }
 

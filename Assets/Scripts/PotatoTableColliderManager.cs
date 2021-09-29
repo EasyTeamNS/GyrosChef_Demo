@@ -5,14 +5,21 @@ using UnityEngine;
 public class PotatoTableColliderManager : MonoBehaviour
 {
 
-    public DragObjects dragObjects;
+    private DragObjects dragObjects;
 
     private bool dragging;
+
 
     // Start is called before the first frame update
     void Start()
     {
         dragObjects = Transform.FindObjectOfType<DragObjects>();
+    }
+    // /*
+
+    void Update()
+    {
+        
     }
 
     public void StartDrag()
@@ -23,7 +30,9 @@ public class PotatoTableColliderManager : MonoBehaviour
     public void StopDrag()
     {
         dragging = false;
+
     }
+    // */
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,9 +43,9 @@ public class PotatoTableColliderManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Drag object: " + collision + " and the collider is: " + this.name);
         if (dragging)
         {
+             Debug.Log("And the collider name: " + this.name);
             dragObjects.GetComponent<DragObjects>().DragObjectDisabled(gameObject);
         }
     }
