@@ -36,8 +36,9 @@ public class PotatoTableColliderManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Drag object: " + other.name + " and the collider is: " + this.name);
+        //Debug.Log("Drag object: " + other.name + " and the collider is: " + this.name);
         dragObjects.GetComponent<DragObjects>().DragObjectDisabled(gameObject);
+        dragObjects.GetComponent<DragObjects>().MoveObjectToEndPosition();
         // pozvati animaciju krompira do masine
     }
 
@@ -45,7 +46,7 @@ public class PotatoTableColliderManager : MonoBehaviour
     {
         if (dragging)
         {
-             Debug.Log("And the collider name: " + this.name);
+            //Debug.Log("And the collider name: " + this.name);
             dragObjects.GetComponent<DragObjects>().DragObjectDisabled(gameObject);
         }
     }

@@ -9,7 +9,7 @@ public class DragObjects : MonoBehaviour
     private Vector3 mOffset;
     private float potatoZAxis;
     //private float mXCoord;
-    private bool canMoveObject;
+    public bool canMoveObject;
 
     //private double postatoZ = 1.457171;
     private float potatoStartY;
@@ -41,25 +41,14 @@ public class DragObjects : MonoBehaviour
     {
         DragObjectEnabled();
         colliderManager.GetComponent<PotatoTableColliderManager>().StopDrag();
-        transform.position.y
+        MoveObjectToEndPosition();
     }
 
     void OnMouseDrag()
     {
         if (canMoveObject)
         {
-            //Debug.Log(gameObject.transform.position.y + " : " + potatoStartY);
-            //if (transform.position.y > potatoStartY)
-            //{
-                transform.position = GetMousePos() + mOffset;
-                //Debug.Log("potato Y > potatoStartY");
-            //}
-            //else
-            //{
-               // DragObjectDisabled(gameObject);
-                //colliderManager.GetComponent<PotatoTableColliderManager>().StopDrag();
-                //Debug.Log("potato Y < potatoStartY");
-            //}
+            transform.position = GetMousePos() + mOffset;
         } 
     }
     private Vector3 GetMousePos()
@@ -73,10 +62,17 @@ public class DragObjects : MonoBehaviour
     public void DragObjectEnabled()
     {
         canMoveObject = true;
+        //Debug.Log(canMoveObject + " enabled");
     }
 
     public void DragObjectDisabled(GameObject g)
     {
         canMoveObject = false;
+        //Debug.Log(canMoveObject + " disabled");
+    }
+
+    public void MoveObjectToEndPosition()
+    {
+
     }
 }
